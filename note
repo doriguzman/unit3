@@ -1,0 +1,9 @@
+so difference with using var and let is that when we use let, it is only defined in the curly brackets that it is used
+so we can keep using the same name used with let 
+
+
+${ stuff in between}
+
+
+
+so bascially the $ signs keep everything in 

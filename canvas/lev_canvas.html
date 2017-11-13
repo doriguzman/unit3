@@ -1,0 +1,31 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <canvas width="2000" height="1000"> </canvas>
+    <script>
+        var ctx=document.querySelector("canvas").getContext('2d');
+        ctx.fillStyle= "blue"
+        
+        function drawRect(x,y,width,height){
+            var canvas = document.querySelector('canvas');
+            ctx.fillRect(x,y,width,height);
+            if(x + width >= canvas.width ){
+                            return 
+                        }else{
+            
+            drawRect(x+width,y+height,width,height)
+            
+                        // if(x+width >= canvas.width){
+                        //     return 
+                        // }
+        }
+    }
+        drawRect(0,0,100,100)
+        
+    </script>
+</body>
+
+</html>
