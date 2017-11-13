@@ -10,3 +10,5 @@ const reduceMin= (arr) =>
 
 
     console.log(reduceMin([1,2,3,4, -100]))
+
+
