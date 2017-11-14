@@ -1,0 +1,11 @@
+fs.readFile('new-file-2.txt', 'utf8', function(err, data) {
+  if (err) throw err;
+  console.log(data.toString());
+});
+
+
+we can use utf8 in order for it to be read normally
+
+also using node to .writeFile only overwrites, not adding
+    to add to the file we could do fs.appendFile
+    
