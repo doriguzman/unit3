@@ -1,0 +1,1 @@
+const chalkModule= require('chalk');
