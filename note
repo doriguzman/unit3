@@ -1,9 +1,55 @@
-so difference with using var and let is that when we use let, it is only defined in the curly brackets that it is used
-so we can keep using the same name used with let 
+const http = require('http');
+
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
+});
+
+server.listen(port, () => {
+  console.log(`Server running at on http://localhost:${port}`);
+});
+
+EXPRESS
+
+const express = require('express') // import express
+const app = express() // create an express server
+const port = 8000; // we will use this later
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+}) // routes the '/' URL path to produce a response of 'Hello World!'
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+}) // asks our server to listen for requests on port 8000, logging to the console to confirm that things are working
 
 
-${ stuff in between}
+BOILER PLATE
+// create "middleware"
+const morgan = require('morgan')
+const express = require('express')
+const port = 8000;
+
+const app = express()
+
+app.use(morgan('dev'))
+
+...
 
 
+////// ROUTE PARAMS
+app.get('/users/:name', (req, res) => {
+  res.send(`Hello ${req.params.name}`)
+})
 
-so bascially the $ signs keep everything in 
+app.get('/users/:name/:favecolor', (req, res) => {
+  // ES6 destructuring assignment
+  // equivalent to
+  // const name = req.params.name
+  // const favecolor = req.params.favecolor
+  const { name, favecolor } = req.params;
+  res.send(`hello ${name}! Hope you are having a ${favecolor} day!`)
+})
