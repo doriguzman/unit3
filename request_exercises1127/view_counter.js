@@ -1,35 +1,67 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const logger = require('morgan')
-const app = express()
+var express = require('express')
+var bodyParser = require('body-parser')
+const morgan = require('morgan')
+var app = express()
 
-
-app.use(logger('dev'))
-
-// parse application/x-www-form-urlencoded
+app.use(morgan('tiny'))
 app.use(bodyParser.urlencoded({ extended: false }))
-
-
-//what .USE MEANS whenever you get a request, forward that request to that body parser 
-
-// parse application/json
 app.use(bodyParser.json())
 
-const counter;
-app.get('/', (req, res) => {
-    fs.readfile('counter.json', 'utf8', (err, data)=>{
-        if(err){
-            if (err.code === 'ENOENT'){
-                fs.writeFile('counter.json', data, (err)=>{
-                    counter ++; 
+const fs = require('fs')
 
+const writeFile = (filename, data, res) => {
+    fs.writeFile(filename, data, (err) => {
+        if (err) {
+            return res.send(err)
+        }
+        res.send('File created!')
+    })
+}
+
+const jsonFile = 'counter.json'
+
+app.get('/', (req, res) => {
+    fs.readFile('counter.json', (err, data) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                data = `{
+                    "count": 1
+                }`
+                writeFile(jsonFile, data, res)
+            }else{
+            return res.send(err)
             }
         }
-           
-            
-        }
-    })
-    
+        
+        let oldData = JSON.parse(data)
 
-      res.send(`Welcome to my Site`)
-  })
+        const obj = {
+            count: oldData.count + 1
+        }
+
+        let jsonVal = JSON.stringify(obj)
+        writeFile(jsonFile, jsonVal, res)
+    })
+})
+
+
+app.post('/reset', (req, res) => { //have to figure out how to change the value in the postman
+    req.body.count = 0
+    let jsonVal = JSON.stringify(req.body)
+    console.log(req.body)
+    fs.appendFile('counter.json', jsonVal, (err) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                writeFile(jsonFile, jsonVal, res)
+            }
+            return res.send(err)
+        }
+       res.send('The current count is 0')
+    })
+})
+
+
+const port = 3000;
+app.listen(port, () => {
+    console.log(`listening to port ${port}`)
+})

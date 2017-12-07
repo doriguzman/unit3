@@ -28,8 +28,6 @@ app.get('/:command/:word', (req, res) => {
 // Object.keys(commands) -> takes the keys in the object and puts them into an array
 
 
-
-
     var array = ['repeat', 'exclaim', 'reverse']
 
     if (!array.includes(userCommand)){

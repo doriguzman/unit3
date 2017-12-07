@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 app.get('/:move', (req, res) => {
     // let userMove= req.params.move;
     let {move} = req.params 
-    let ans = new answer(move)
+    let ans = new Answer(move)
     // let ans= new answer(userMove)
     res.send(ans);
 })
@@ -34,7 +34,7 @@ function random() {
 }
 
 // user is defined on line 14 as the move that the user puts in after the /
-function answer(user) {
+function Answer(user) {
     this.user = user;
     this.ai = random();
     this.result = result(this.user , this.ai)

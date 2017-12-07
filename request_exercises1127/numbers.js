@@ -50,4 +50,6 @@ const writeFile = (filename, data, res) => {
       })
   })
 
-
+app.listen(port, ()=>{
+    console.log(   `listening on ${port}`)
+})
